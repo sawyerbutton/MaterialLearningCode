@@ -1,0 +1,134 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!--toolbar can be different color-->
+
+<br>
+<h2>toolbar row</h2>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>first line</span>
+    <span class="toolbar-separator"></span>
+    <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span>first line</span>
+    <span class="toolbar-separator"></span>
+    <button mat-icon-button><mat-icon>delete</mat-icon></button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<br>
+<h2>different color toolbar</h2>
+<mat-toolbar color="primary">primary color toolbar</mat-toolbar>
+<mat-toolbar color="accent">accent color toolbar</mat-toolbar>
+<mat-toolbar color="warn">warning color toolbar</mat-toolbar>
+<br>
+<mat-drawer-container style="height:100px;border: 1px solid black;width: 30%;">
+  <mat-drawer mode="over" opened="true" #drawerSide>
+    Drawer Side
+    <button mat-raised-button color="accent">toggle</button>
+  </mat-drawer>
+  <mat-drawer-content>
+    Content
+    <button mat-raised-button color="accent" (click)="drawerSide.toggle()">toggle</button>
+  </mat-drawer-content>
+</mat-drawer-container>
+<button mat-button>Hello Material</button>
+<button mat-raised-button color="primary">Hello Again</button>
+<!--<i class="material-icons">person</i>-->
+<mat-icon>person</mat-icon>
+<h2>Customize the material icon</h2>
+<div>
+  <!--default svg-->
+  <mat-icon svgIcon="custom-svg:angular"></mat-icon>
+  <!--svg with different color-->
+  <mat-icon svgIcon="custom-svg:angular" color="primary"></mat-icon>
+  <mat-icon svgIcon="custom-svg:angular" color="accent"></mat-icon>
+  <mat-icon svgIcon="custom-svg:angular" color="warning"></mat-icon>
+</div>
+<h2>Customize the material icon with font-awesome</h2>
+<div>
+  <!--<i class="fa fa-thumb-up">equals to</i>-->
+  <mat-icon fontSet="fontawesome" fontIcon="fa-thumbs-up"></mat-icon>
+  <mat-icon fontSet="fontawesome" fontIcon="fa-thumbs-up" color="primary"></mat-icon>
+  <mat-icon fontSet="fontawesome" fontIcon="fa-thumbs-up" color="accent"></mat-icon>
+  <mat-icon fontSet="fontawesome" fontIcon="fa-thumbs-up" color="warn"></mat-icon>
+</div>
+<h2>flat button in material</h2>
+<button mat-button>I am a button</button>
+<button mat-button color="primary">Primary</button>
+<button mat-button color="accent">Accent</button>
+<button mat-button color="warn">Warn</button>
+<button mat-button disabled>Disabled</button>
+<a mat-button>Link</a> <!--use link in the button-->
+<h2>raised button in material</h2>
+<button mat-raised-button>I am a raised button</button>
+<button mat-raised-button color="primary">Primary</button>
+<button mat-raised-button color="accent">Accent</button>
+<button mat-raised-button color="warn">Warn</button>
+<button mat-raised-button disabled>Disabled</button>
+<a mat-button>Link</a>
+<h3>Button with Icon</h3>
+<button mat-raised-button color="primary"><mat-icon>thumb_up</mat-icon>I have a thumb up icon</button><br>
+<span>without words description here</span>
+<button mat-raised-button color="primary"><mat-icon>thumb_up</mat-icon></button><br>
+<button mat-icon-button color="primary"><mat-icon>thumb_up</mat-icon></button>
+<button mat-raised-button mat-icon-button color="primay"><mat-icon>thumb_down</mat-icon></button>
+<h2>floating action button</h2>
+<button mat-fab><mat-icon>thumb_up</mat-icon></button>
+<button mat-fab color="primary"><mat-icon>thumb_up</mat-icon></button>
+<button mat-fab color="accent"><mat-icon>thumb_up</mat-icon></button>
+<button mat-fab color="warn"><mat-icon>thumb_up</mat-icon></button>
+<button mat-fab disabled><mat-icon>thumb_up</mat-icon></button>
+<h3>floating action mini button</h3>
+<button mat-mini-fab><mat-icon>thumb_up</mat-icon></button>
+<button mat-mini-fab color="primary"><mat-icon>thumb_up</mat-icon></button>
+<button mat-mini-fab color="accent"><mat-icon>thumb_up</mat-icon></button>
+<button mat-mini-fab color="warn"><mat-icon>thumb_up</mat-icon></button>
+<button mat-mini-fab disabled><mat-icon>thumb_up</mat-icon></button>
+<h2>Button toggle</h2>
+<mat-button-toggle>I am a toggle</mat-button-toggle>
+<h3>Button toggle group</h3>
+<mat-button-toggle-group #formatAlignGroup="matButtonToggleGroup">
+  <!-- button toggle' value -->
+  <mat-button-toggle value="left">
+    <mat-icon>format_align_left</mat-icon>
+  </mat-button-toggle>
+  <!-- default value represented by checked attribute -->
+  <mat-button-toggle value="center" checked="true">
+    <mat-icon>format_align_center</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="right">
+    <mat-icon>format_align_right</mat-icon>
+  </mat-button-toggle>
+  <!-- disabled button toggle -->
+  <mat-button-toggle value="justify" disabled>
+    <mat-icon>format_align_justify</mat-icon>
+  </mat-button-toggle>
+</mat-button-toggle-group>
+<div>{{formatAlignGroup.value}}</div>
+<!--multiple means items can be multi-choose-->
+<!--multiple will restrict the usage of ngModel-->
+<!--vertical = "true" changes the style arrangement-->
+<mat-button-toggle-group multiple vertical="true">
+  <mat-button-toggle value="bold" #buttonToggleBold>
+    <mat-icon>format_bold</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="italic" checked="true" #buttonToggleItalic>
+    <mat-icon>format_italic</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="underlined" checked="true" #buttonToggleUnderlined>
+    <mat-icon>format_underlined</mat-icon>
+  </mat-button-toggle>
+</mat-button-toggle-group>
+<div>Bold style: {{buttonToggleBold.checked}},Italic style: {{buttonToggleItalic.checked}}, UnderLined style: {{buttonToggleUnderlined.checked}}</div>
+<h2>Ripple style</h2>
+<div class="ripple-demo-container" mat-ripple
+     [matRippleCentered]="false"
+     [matRippleDisabled]="false"
+     [matRippleUnbounded]="false"
+     [matRippleRadius]="10"
+     [matRippleColor]="'pink'"
+     [matRippleSpeedFactor]="0.5"
+></div>
+<button mat-raised-button color="primary" (click)="triggerRipple()">activate ripple</button>
+<button mat-raised-button class="accent" (click)="clearRipple()">deactivate ripple</button>
+

@@ -1,0 +1,106 @@
+<mat-toolbar class="demo-header" color="primary">
+  <button mat-icon-button (click)="sideNav.toggle()">
+    <mat-icon>{{sideNav.opened? 'close': 'menu'}}</mat-icon>
+  </button>
+  <span>Angular Material Learning Demo</span>
+  <span class="toolbar-separator"></span>
+  <button mat-icon-button [matMenuTriggerFor]="messageMenu" #menuTrigger="matMenuTrigger">
+    <mat-icon>message</mat-icon>
+  </button>
+  <mat-menu #messageMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+    <button mat-menu-item>New Message</button>
+    <button mat-menu-item>Message setting</button>
+  </mat-menu>
+  <button mat-icon-button>
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+  <button mat-raised-button [matMenuTriggerFor]="positionMenu">Nested Menu</button>
+  <mat-menu #positionMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="subMenu1">message 1</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item [matMenuTriggerFor]="subMenu2">message 2</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>message 3</button>
+  </mat-menu>
+  <mat-menu #subMenu1="matMenu">
+    <button mat-menu-item>
+      <mat-icon>person</mat-icon>
+      message 1-1
+    </button>
+    <button mat-menu-item>
+      <mat-icon>favorite</mat-icon>
+      message 1-2
+    </button>
+    <button mat-menu-item>
+      <mat-icon>thumb_up</mat-icon>
+      message 1-3
+    </button>
+  </mat-menu>
+
+  <mat-menu #subMenu2="matMenu">
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      message 2-1
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>settings</mat-icon>
+      message 2-2
+    </button>
+  </mat-menu>
+</mat-toolbar>
+<mat-sidenav-container  class="demo-container">
+  <!--for side nav bar-->
+  <!--there are three mode including push over and side-->
+  <!--opened value decide the default status of side nav-->
+  <!--fixedInViewPort will make the side nav above the toolbar fixedTopGap&fixedBottomGap position-->
+  <mat-sidenav #sideNav (opened)="opened()" class="demo-sideNav" (closed)="closed()" mode="side" opened="true" disableClose fixedInViewport="false" fixedTopGap="20" fixedBottomGap="20">
+    left side navigation
+    <br>
+    <button mat-raised-button color="accent" (click)="toggleSideNav(sideNav)">toggle the status of left nav</button>
+    <!--comparing with mat-list mat-nav-list is awesome-->
+    <mat-nav-list>
+      <h3 matSubheader>Example list</h3>
+      <mat-list-item [routerLink]="['/', 'dashboard', 'survey']">Survey</mat-list-item>
+      <mat-list-item [routerLink]="['/', 'dashboard', 'blog']">Blog</mat-list-item>
+      <mat-list-item [routerLink]="['/', 'dashboard', 'inbox']">Inbox</mat-list-item>
+      <!--mat divider is a line divider-->
+      <mat-divider></mat-divider>
+      <h3 matSubheader>Other list</h3>
+      <a [routerLink]="['/']" mat-list-item>HomePage</a>
+      <a [routerLink]="['/']" mat-list-item>Google</a>
+      <a [routerLink]="['/']" mat-list-item>Facebook</a>
+      <mat-divider></mat-divider>
+      <h3 matSubheader>List with multiple lines</h3>
+      <mat-list-item>
+        <!--mat line is in-list paragraph-->
+        <p matLine>American Airline</p>
+        <p matLine>United Airline</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <img matListAvatar src="...">
+        <p matLine>Message from friend</p>
+        <button mat-icon-button><mat-icon>chat</mat-icon></button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-selection-list>
+        <mat-list-option [value]="1" selected="true" #optNew>New Message</mat-list-option>
+        <mat-list-option [value]="1" #optAds>Ads</mat-list-option>
+      </mat-selection-list>
+    </mat-nav-list>
+  </mat-sidenav>
+  <!--there are only one left side nav and one right side nav-->
+  <mat-sidenav opened="false" mode="over" position="end" class="demo-sideNav" #rightSideNav>
+    <div>right side navigation</div>
+    <button mat-raised-button color="accent" (click)="rightSideNav.toggle()"></button>
+  </mat-sidenav>
+  <!--for main route outlet-->
+  <mat-sidenav-content>
+    <button mat-raised-button color="primary" (click)="sideNav.toggle()">toggle the left side nav status</button>
+    <button mat-raised-button color="primary" (click)="rightSideNav.toggle()">toggle the right side nav status</button>
+    <!--matMenuTriggerFor has function openMenu() closeMenu() and toggleMenu()-->
+    <button mat-raised-button color="primary" (click)="menuTrigger.toggleMenu()">Open message menu</button>
+    <br>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
