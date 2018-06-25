@@ -22,5 +22,9 @@ ng serve --open
 - Slider
 ---
 ## blog
+- Grid List
+- Card
+- Progress Series
+- Dialog
 ---
 ## Inbox

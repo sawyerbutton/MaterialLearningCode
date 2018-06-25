@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedMaterialModule } from './shared-material/shared-material.module';
 import { HttpClientModule } from '@angular/common/http';
+// import { SubContentPipe } from './shared/sub-content.pipe';
 // import { ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
