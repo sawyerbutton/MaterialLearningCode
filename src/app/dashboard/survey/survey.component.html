@@ -1,0 +1,213 @@
+<button mat-button (click)="isLinear = !isLinear">toggle isLinear status</button>
+<!--<mat-horizontal-stepper>-->
+  <!--<mat-step label="Personal Info">-->
+    <!--<h4>Provide personal information</h4>-->
+  <!--</mat-step>-->
+  <!--<mat-step label="specific content">-->
+    <!--<h4>main question content</h4>-->
+  <!--</mat-step>-->
+  <!--<mat-step label="other">-->
+    <!--<h4>Other Question</h4>-->
+  <!--</mat-step>-->
+<!--</mat-horizontal-stepper>-->
+<!--<br>-->
+<!--vertical mode-->
+<h2>Vertical Stepper</h2>
+<form [formGroup]="surveyForm">
+<mat-vertical-stepper  [linear]="isLinear">
+  <!--optional property can not influence the isLinear property-->
+  <mat-step formGroupName="basicQuestions" [stepControl]="surveyForm.get('basicQuestions')" optional>
+    <!--If want to add some more detailed or complicated information here then using ng-template-->
+    <ng-template matStepLabel>
+      <u>Personal Info</u>
+    </ng-template>
+    <h4>Provide personal information</h4>
+    <div>
+      <!--float label is the setting for label-placeholder style-->
+      <!--always means the label-placeholder show as label, never show as placeholder, auto as auto-->
+      <!--hideRequiredMarker property will hide the star marker if you set the required property in element but it will not influence the validator-->
+      <!--hintLabel do not have align property, usually using as words-->
+      <mat-form-field floatLabel="always" [hideRequiredMarker]="true" hintLabel="Maximum characters is 5" class="form-field">
+        <input name="name" matInput placeholder="Name" formControlName="name" required>
+        <mat-hint align="end">
+          Input:{{ surveyForm.get('basicQuestions')?.get('name')?.value?.length || 0 }} / 5
+        </mat-hint>
+        <mat-error>Something wrong with name input</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <!--default color for mat-form-field is primary, which can be switch to any color by using color property-->
+      <mat-form-field floatLabel="auto" class="form-field" color="accent">
+        <!--mat-placeholder has more availability display data, but it can not be using with placeholder attribute-->
+        <input type="text" name="nickname" matInput />
+        <mat-placeholder>
+          <mat-icon>person</mat-icon>
+          Please input your nickname
+        </mat-placeholder>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <!--errorStateMatcher will modify the showing time for error message-->
+        <!--matTextareaAutosize will automatic modify the size of the text-area-->
+        <textarea name="intro_self" matInput placeholder="Introduction" formControlName="intro" [errorStateMatcher]="earlyErrorStateMatcher" matTextareaAutosize></textarea>
+        <mat-hint>Please introduce</mat-hint>
+        <mat-error *ngIf="surveyForm.get('basicQuestions').get('intro').hasError('required')">Please input introduction</mat-error>
+        <mat-error *ngIf="surveyForm.get('basicQuestions').get('intro').hasError('minlength')">please input at least 10 characters</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <input type="text" matInput name="country" placeholder="Country" formControlName="country" [matAutocomplete]="countries">
+      </mat-form-field>
+      <mat-autocomplete #countries="matAutocomplete" [displayWith]="displayCountry">
+        <mat-option *ngFor="let country of countries$ | async" [value]="country">
+          <span [innerHTML]="highlightFiltered(country.name)"></span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <input type="text" matInput name="majorTech" placeholder="Major Tech" formControlName="majorTech" [matAutocomplete]="majorTeches">
+      </mat-form-field>
+      <!--mat-optgroup can do the nested group auto complete-->
+      <mat-autocomplete #majorTeches="matAutocomplete">
+        <mat-optgroup *ngFor="let techList of majorTechList" [label]="techList.name">
+          <mat-option *ngFor="let tech of techList.items" [value]="tech">
+            {{ tech }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </div>
+    <div>
+        <mat-form-field class="form-field">
+          <!--minDate and maxDate will influence the start date and end date restriction-->
+          <!--matDatepickerFilter is a directive for filter selectable date -->
+          <!--logDateInput and logDateChange event is for log the value changes in input which are not clearly-->
+          <!--dateInput and dateChange will be more readable and reliable for event object-->
+          <input type="text" name="birthday" matInput placeholder="Birthday" (dateInput)="logDateInput($event)" (dateChange)="logDateChange($event)" [matDatepicker]="birthdayPicker" [min]="minDate" [max]="maxDate" [matDatepickerFilter]="familyDateFilter" formControlName="birthday"/>
+          <!--disabled property will disable the usage for toggle-->
+          <mat-datepicker-toggle [for]="birthdayPicker" matSuffix ></mat-datepicker-toggle>
+          <!--startView ="year" will make the view start from year-->
+          <!--start_at property will make the view start from chosen date-->
+          <!--disable the input box but allow to choose date which will be a nice way to avoid mis-action-->
+          <!--touchUi will help the date picker being more convenient in mobile devices-->
+          <mat-datepicker #birthdayPicker startView="year" [startAt]="startDate" disabled="false" touchUi="true"></mat-datepicker>
+          <!--You also can use button to activate the date picker rather than using date toggle-->
+      </mat-form-field>
+      <button mat-raised-button (click)="birthdayPicker.opened = true">Open Date Picker</button>
+    </div>
+    <div>
+        <!--disabled property using in mat-select will disable the whole select box-->
+        <!--<mat-select [formControlName]="interest" placeholder="Interest" disabled>-->
+        <!--disabled property using in mat-option will disable the chosen option in the below example we will disable the option order 1-->
+      <mat-form-field class="form-field">
+        <!--multiple property will let the selectable options being multi-selectable-->
+        <!--property multiple can not be modify after mode selecting, so if want to switch to is not multiple use ngIf or ngSwitch-->
+        <!--<mat-select *ngIf="isMultiple" multiple>-->
+          <!--...-->
+        <!--</mat-select>-->
+        <!--<mat-select *ngIf="!isMultiple">-->
+          <!--...-->
+        <!--</mat-select>-->
+        <!--panelClass is a customize drop-down style, the important part is the css style need to be setting by ViewEncapsulation or in global style.css file, setting in component.css is useless-->
+        <mat-select formControlName="interest" placeholder="Interest" [multiple]="true" #selectedInterest panelClass="blue-dropDown">
+          <!--mat-select-trigger will change the default style of selected data-->
+          <mat-select-trigger>
+            Totally choose {{ selectedInterest.selected.length }} interests
+          </mat-select-trigger>
+          <!--Adding a option with value equals to undefined property will reset the status as original which will result in some optional choice-->
+          <mat-option [value]="undefined">Null</mat-option>
+          <!--nested select box-->
+          <!--disable property in parent level will disable the whole property in the nested group,-->
+          <mat-optgroup *ngFor="let parent of nestInterestList; let index = index" [label]="parent.name" [disabled]="index===1">
+            <mat-option *ngFor="let child of parent.subItems;let order = index" [value]="child.id" [disabled]="order === 1">{{ child.name }}</mat-option>
+          </mat-optgroup>
+          <!--<mat-option *ngFor="let item of interestList; let index = index" [value]="item.id" [disabled]="index === 1">{{ item.name }}</mat-option>-->
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <!--matPrefix and matSuffix will set the position of icon or span-->
+        <input type="number" matInput placeholder="Daily consume">
+        <mat-icon matPrefix>attach_money</mat-icon>
+        <span matSuffix>Dollars</span>
+      </mat-form-field>
+    </div>
+    <button mat-button matStepperNext>Next</button>
+  </mat-step>
+  <!--this step can not be edit again if you click next button because of the editable property-->
+  <mat-step editable="false" formGroupName="mainQuestions">
+    <ng-template matStepLabel>
+      <u>Specific question</u>
+    </ng-template>
+    <h4>main question content</h4>
+    <div class="form-field">Besides daily consumption, you often pay on</div>
+    <!--labelPosition will decide the label and the box position, before and after-->
+    <!--indeterminate property is using for representing the status between checked and un-checked-->
+    <mat-checkbox formControlName="payForAll" [indeterminate]="indeterminateSelectedPayFor" (change)="checkAllChange($event)">全部</mat-checkbox>
+    <mat-checkbox formControlName="payForBook" labelPosition="before" (change)="payForChange()" color="primary">Books</mat-checkbox>
+    <mat-checkbox formControlName="payForMusic" labelPosition="after" (change)="payForChange()" color="accent">Music</mat-checkbox>
+    <!--because the default value is true-->
+    <mat-checkbox formControlName="payForMovie" (change)="payForChange()" color="warn">Movies</mat-checkbox>
+    <div style="width: 600px;">
+      <h3>What is your rating for Angular</h3>
+      <mat-radio-group formControlName="angularScore" style="width: 500px" labelPosition="before">
+        <mat-radio-button [value]="1" color="primary">worst</mat-radio-button>
+        <mat-radio-button [value]="2" color="accent">do not like</mat-radio-button>
+        <mat-radio-button [value]="3" color="warn">fair</mat-radio-button>
+        <mat-radio-button [value]="4">like</mat-radio-button>
+        <!--labelPosition property will cover the property in radio-group-->
+        <mat-radio-button [value]="5" labelPosition="after">awesome</mat-radio-button>
+      </mat-radio-group>
+      <h3>What is your rating for Material</h3>
+      <mat-radio-group formControlName="materialScore" style="width: 500px">
+        <mat-radio-button [value]="1">worst</mat-radio-button>
+        <mat-radio-button [value]="2">do not like</mat-radio-button>
+        <mat-radio-button [value]="3">fair</mat-radio-button>
+        <mat-radio-button [value]="4">like</mat-radio-button>
+        <mat-radio-button [value]="5">awesome</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <h3>slide toggle</h3>
+      <div style="width: 300px">
+        <mat-slide-toggle formControlName="subscribeAngular" labelPosition="after" color="primary">Angular Step by STEP</mat-slide-toggle>
+      </div>
+      <div style="width: 300px">
+        <mat-slide-toggle formControlName="subscribeAngularMaterial" color="accent">Angular Material trick or treat</mat-slide-toggle>
+      </div>
+      <div style="width: 300px">
+        <mat-slide-toggle formControlName="subscribeNgRx" color="warn">Everything your need to knwo about NgRx</mat-slide-toggle>
+      </div>
+    </div>
+    <button mat-button matStepperPrevious>Previous</button>
+    <button mat-button matStepperNext>Next</button>
+  </mat-step>
+  <mat-step formGroupName="otherQuestions">
+    <ng-template matStepLabel>
+      <u>others</u>
+    </ng-template>
+    <h4>Other Question</h4>
+    <div>Choose your favorite color</div>
+    <div style="width: 400px;">
+      <span>Red</span>
+      <!--vertical property will change the style from horizontal to vertical-->
+      <!--invert will traverse the style from biggest to smallest-->
+      <mat-slider formControlName="favoriteColorRed" min="0" max="255" step="1" vertical invert></mat-slider>
+    </div>
+    <div style="width: 400px;">
+      <span>Green</span>
+      <mat-slider formControlName="favoriteColorGreen" min="0" max="255" step="1" thumbLabel></mat-slider>
+    </div>
+    <div style="width: 400px;">
+      <span>Blue</span>
+      <mat-slider formControlName="favoriteColorBlue" min="0" max="255" step="5" tickInterval="2"></mat-slider>
+    </div>
+    <div style="width: 400px;">RGB: ({{ selectedColorRed }}, {{ selectedColorGreen }}, {{ selectedColorBlue }})</div>
+    <div style="width: 50px; height: 50px; border: 1px solid #000" [ngStyle]="{background: selectedColorStyle}"></div>
+    <button mat-button matStepperPrevious>Previous</button>
+  </mat-step>
+</mat-vertical-stepper>
+</form>

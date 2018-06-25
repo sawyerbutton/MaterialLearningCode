@@ -2,12 +2,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
+import {SurveyComponent} from './survey/survey.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    children: [{ path: '', component: MainComponent }]
+    children: [
+      { path: '', component: MainComponent },
+      { path: 'survey', component: SurveyComponent}
+    ]
   }
 ];
 
