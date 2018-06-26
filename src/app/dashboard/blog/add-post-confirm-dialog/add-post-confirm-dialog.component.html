@@ -1,0 +1,8 @@
+<h2 mat-dialog-title="">Confirm Add Article</h2>
+<mat-dialog-content>
+  Sure for adding this Article?(Title:{{title}})
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="confirm();snackConfirm()">Confirm</button>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+</mat-dialog-actions>

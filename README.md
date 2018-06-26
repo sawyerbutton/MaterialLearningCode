@@ -26,5 +26,6 @@ ng serve --open
 - Card
 - Progress Series
 - Dialog
+- Chip Tooltip SnackBar
 ---
 ## Inbox

@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Article Added</h2>
+<mat-dialog-content class="post-form">
+  <button mat-raised-button color="primary" (click)="titleTooltip.show()">Open Tooltip</button>
+  <button mat-raised-button color="accent" (click)="titleTooltip.hide()">close Tooltip</button>
+  <mat-form-field>
+    <!--matTooltipshowDelay will modify the delay time-->
+    <input type="text" matInput placeholder="Title" [(ngModel)]="title" matTooltip="Please input a title for your article"
+           matTooltipPosition="right"
+           #titleTooltip = "matTooltip"
+           matTooltipShowDelay="500"
+           matTooltipHideDelay="500"
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Main Content" rows="3"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let tag of tags" (click)="removeTag(tag)" removable="true">
+        {{ tag }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+    <input matInput placeholder="Article Label"
+           [matChipInputFor]="chipList"
+           [matChipInputAddOnBlur]="true"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           (matChipInputTokenEnd)="addTag($event)"
+    >
+  </mat-form-field>
+  <p mat-line><mat-icon>whatshot</mat-icon>Privacy</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="move()">Move position</button>
+  <button mat-raised-button color="primary" (click)="doPost()">Submit</button>
+  <!--mat-dialog-close use as a exit for current dialog-->
+  <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

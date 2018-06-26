@@ -8,10 +8,14 @@ import { SurveyComponent } from './survey/survey.component';
 import { BlogComponent } from './blog/blog.component';
 import { SubContentPipe} from '../shared/sub-content.pipe';
 import { SubMainPipe } from './Pipe/sub-main.pipe';
+import { AddPostDialogComponent } from './blog/add-post-dialog/add-post-dialog.component';
+import { AddPostConfirmDialogComponent } from './blog/add-post-confirm-dialog/add-post-confirm-dialog.component';
+import { AfterPostNotifyComponent } from './blog/after-post-notify/after-post-notify.component';
 
 @NgModule({
   imports: [CommonModule, DashboardRoutingModule, SharedMaterialModule],
-  declarations: [DashboardComponent, MainComponent, SurveyComponent, BlogComponent, SubContentPipe, SubMainPipe],
-  exports: [DashboardComponent]
+  declarations: [DashboardComponent, MainComponent, SurveyComponent, BlogComponent, SubContentPipe, SubMainPipe, AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent],
+  exports: [DashboardComponent],
+  entryComponents: [ AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent]
 })
 export class DashboardModule {}

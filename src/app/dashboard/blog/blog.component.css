@@ -16,3 +16,9 @@ mat-card:focus {
   padding-top: 100px;
   width: 95%;
 }
+.mat-basic-chip {
+  background: lime;
+  margin: 0 0 0 8px;
+  padding: 7px 12px;
+  border-radius: 5px;
+}

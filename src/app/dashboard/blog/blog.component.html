@@ -1,11 +1,20 @@
 <br>
+<button mat-raised-button (click)="showAddPostDialog()">Add Article</button>
 <!--cols will decide the number of grid separate the full width-->
 <!--rowHeight will customize the height for every grid, default height is equals to the full-width/cols, rowHeight="4:1" also accept which means width/height = 4:1-->
 <!--gutterSize can modify the margin area between each cell-->
 <mat-grid-list [cols]="3" rowHeight="100px">
   <!--rowpspan&colspan which default values are 1 will take place of numbers of width or height-->
-  <mat-grid-tile style="background: red" [colspan]="2">
-    Title1 top part
+  <mat-grid-tile [colspan]="2">
+    <h4>Article Label</h4>
+    <mat-chip-list>
+      <!--color only can modify the color of selected chip-->
+      <mat-chip [selected]="true" color="primary">JavaScript</mat-chip>
+      <mat-chip color="accent" [selected]="true">Material Design</mat-chip>
+      <mat-chip color="warn" [selected]="true">Angular Material</mat-chip>
+      <!--mat-basic-chip is the only chip which can be setting style customized-->
+      <mat-basic-chip>HTML</mat-basic-chip>
+    </mat-chip-list>
   </mat-grid-tile>
   <!--like a right part new ads-->
   <mat-grid-tile [rowspan]="22">
