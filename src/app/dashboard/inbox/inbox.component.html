@@ -1,0 +1,98 @@
+<div class="container">
+  <section class="aside">
+    <mat-accordion multi="false" displayMode="flat">
+      <!--display mode default value is default which will omit the blank space between panel-->
+      <!--mat-accordion' multi property will set there is only one expanded panel one time-->
+      <mat-expansion-panel [hideToggle]="true" expanded="true">
+        <!--hideToggle will hide the top right toggle button-->
+        <!--expanded property decide default status of expanded or not-->
+        <!--disabled property will force the panel un-touchable -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>inbox</mat-icon>
+            Inbox
+          </mat-panel-title>
+          <mat-panel-description>
+            3 unread
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item>
+            <mat-icon>folder</mat-icon>
+            Angular
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon>folder</mat-icon>
+            JavaSCript
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon>folder</mat-icon>
+            Rxjs
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>person</mat-icon>
+            Contacts
+          </mat-panel-title>
+          <mat-panel-description>
+            2 online
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item>
+            <img matListAvatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/512px-Angular_full_color_logo.svg.png" />
+            <p matLine>Angular</p>
+            <button mat-icon-button>
+              <mat-icon>email</mat-icon>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-icon-button>
+              <mat-icon>email</mat-icon>
+            </button>
+            <img matListAvatar src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png"
+            />
+            <p matLine>TypeScript</p>
+          </mat-list-item>
+        </mat-nav-list>
+        <mat-action-row>
+          <button mat-raised-button color="primary">Manage Contacts</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </section>
+  <section class="main">
+    <button mat-raised-button (click)="tabIndex = tabIndex + 1">Tab+</button>
+    <button mat-raised-button (click)="tabIndex = tabIndex - 1">Tab-</button>
+    <p mat-line>Current Tab Index:{{tabIndex}}</p>
+    <mat-tab-group [(selectedIndex)]="tabIndex"
+                   (focusChange)="tabFocusChange($event)"
+                   (selectedIndexChange)="tabSelectedIndexChange($event)"
+                   (selectedTabChange)="tabSelectedTabChange($event)"
+                   mat-stretch-tabs
+                   backgroundColor="primary"
+                   color="accent"
+                   >
+                   <!--headerPosition="below"-->
+      <!--background color will modify the color of current tab group background color will modify the color of focus tab-->
+      <mat-tab >
+        <ng-template mat-tab-label>
+          <mat-icon>inbox</mat-icon>
+          Mail Box
+        </ng-template>
+        <app-email></app-email>
+      </mat-tab>
+      <!--disabled property will make the tab can not be choose-->
+      <mat-tab disabled="true">
+        <ng-template mat-tab-label>
+          <mat-icon>settings</mat-icon>
+          System setting
+        </ng-template>
+        System setting
+      </mat-tab>
+    </mat-tab-group>
+  </section>
+</div>

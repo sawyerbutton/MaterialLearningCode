@@ -11,10 +11,13 @@ import { SubMainPipe } from './Pipe/sub-main.pipe';
 import { AddPostDialogComponent } from './blog/add-post-dialog/add-post-dialog.component';
 import { AddPostConfirmDialogComponent } from './blog/add-post-confirm-dialog/add-post-confirm-dialog.component';
 import { AfterPostNotifyComponent } from './blog/after-post-notify/after-post-notify.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { EmailComponent } from './inbox/email/email.component';
 
 @NgModule({
   imports: [CommonModule, DashboardRoutingModule, SharedMaterialModule],
-  declarations: [DashboardComponent, MainComponent, SurveyComponent, BlogComponent, SubContentPipe, SubMainPipe, AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent],
+  declarations: [DashboardComponent, MainComponent, SurveyComponent, BlogComponent, SubContentPipe, SubMainPipe,
+    AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent, InboxComponent, EmailComponent],
   exports: [DashboardComponent],
   entryComponents: [ AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent]
 })

@@ -26,7 +26,12 @@ import {
   MatDialogModule,
   MatChipsModule,
   MatTooltipModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatExpansionModule,
+  MatTabsModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
 } from '@angular/material';
 import { MatMomentDateModule} from '@angular/material-moment-adapter';
 import { ReactiveFormsModule} from '@angular/forms';
@@ -37,6 +42,6 @@ import { FormsModule} from '@angular/forms';
     MatListModule, MatMenuModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatAutocompleteModule,
     MatDatepickerModule, MatMomentDateModule, MatSelectModule, MatCheckboxModule, MatRadioModule, MatSlideToggleModule, MatSliderModule,
     MatGridListModule, MatCardModule, MatProgressBarModule, MatProgressSpinnerModule, MatDialogModule, FormsModule, MatChipsModule,
-    MatTooltipModule, MatSnackBarModule]
+    MatTooltipModule, MatSnackBarModule, MatExpansionModule, MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule]
 })
 export class SharedMaterialModule { }
