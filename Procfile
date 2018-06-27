@@ -1,1 +1,1 @@
-npm run start && npm postinstall
+npm run start && npm run postinstall
