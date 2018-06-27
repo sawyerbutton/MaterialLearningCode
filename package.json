@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "deploy": "node dist/MaterialLearningCode/main.js",
+    "postinstall": "ng build — env=prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -24,6 +25,7 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "typescript": "~2.7.2",
     "core-js": "^2.5.4",
     "express": "^4.16.3",
     "moment": "^2.22.2",
@@ -51,5 +53,9 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1"
+  },
+  "engines": {
+    "node": "8.9.4",
+    "npm": "6.1.0"
   }
 }
