@@ -28,7 +28,7 @@
       <!--hideRequiredMarker property will hide the star marker if you set the required property in element but it will not influence the validator-->
       <!--hintLabel do not have align property, usually using as words-->
       <mat-form-field floatLabel="always" [hideRequiredMarker]="true" hintLabel="Maximum characters is 5" class="form-field">
-        <input name="name" matInput placeholder="Name" formControlName="name" required>
+        <input name="name" matInput placeholder="Name" formControlName="name" required appSurveyInput>
         <mat-hint align="end">
           Input:{{ surveyForm.get('basicQuestions')?.get('name')?.value?.length || 0 }} / 5
         </mat-hint>
@@ -39,7 +39,7 @@
       <!--default color for mat-form-field is primary, which can be switch to any color by using color property-->
       <mat-form-field floatLabel="auto" class="form-field" color="accent">
         <!--mat-placeholder has more availability display data, but it can not be using with placeholder attribute-->
-        <input type="text" name="nickname" matInput />
+        <input type="text" name="nickname" matInput appSurveyInput/>
         <mat-placeholder>
           <mat-icon>person</mat-icon>
           Please input your nickname
@@ -50,7 +50,7 @@
       <mat-form-field class="form-field">
         <!--errorStateMatcher will modify the showing time for error message-->
         <!--matTextareaAutosize will automatic modify the size of the text-area-->
-        <textarea name="intro_self" matInput placeholder="Introduction" formControlName="intro" [errorStateMatcher]="earlyErrorStateMatcher" matTextareaAutosize></textarea>
+        <textarea name="intro_self" matInput placeholder="Introduction" formControlName="intro" [errorStateMatcher]="earlyErrorStateMatcher" matTextareaAutosize appSurveyInput></textarea>
         <mat-hint>Please introduce</mat-hint>
         <mat-error *ngIf="surveyForm.get('basicQuestions').get('intro').hasError('required')">Please input introduction</mat-error>
         <mat-error *ngIf="surveyForm.get('basicQuestions').get('intro').hasError('minlength')">please input at least 10 characters</mat-error>
@@ -60,7 +60,7 @@
       <mat-form-field class="form-field">
         <input type="text" matInput name="country" placeholder="Country" formControlName="country" [matAutocomplete]="countries">
       </mat-form-field>
-      <mat-autocomplete #countries="matAutocomplete" [displayWith]="displayCountry">
+      <mat-autocomplete #countries="matAutocomplete" [displayWith]="displayCountry" appSurveyInput>
         <mat-option *ngFor="let country of countries$ | async" [value]="country">
           <span [innerHTML]="highlightFiltered(country.name)"></span>
         </mat-option>
@@ -92,7 +92,7 @@
           <!--start_at property will make the view start from chosen date-->
           <!--disable the input box but allow to choose date which will be a nice way to avoid mis-action-->
           <!--touchUi will help the date picker being more convenient in mobile devices-->
-          <mat-datepicker #birthdayPicker startView="year" [startAt]="startDate" disabled="false" touchUi="true"></mat-datepicker>
+          <mat-datepicker #birthdayPicker startView="year" [startAt]="startDate" disabled="false" touchUi="isHandset$ | async"></mat-datepicker>
           <!--You also can use button to activate the date picker rather than using date toggle-->
       </mat-form-field>
       <button mat-raised-button (click)="birthdayPicker.opened = true">Open Date Picker</button>

@@ -1,6 +1,41 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <!--toolbar can be different color-->
+<app-cdk-observe-content-demo>
+  {{ displayContent }}
+</app-cdk-observe-content-demo>
 
+<div>
+  <button mat-raised-button color="primary" (click)="displayContent = displayContent + 1">變更內容</button>
+</div>
+<br>
+<h2>CDKPortal</h2>
+<input matInput type="input" [(ngModel)]="name">
+<div class="portal-demo">
+  <div class="tabs">
+    <button mat-button (click)="changePortal1()">function1</button>
+    <button mat-button (click)="changePortal2()">function2</button>
+    <button mat-button (click)="changePortal3()">function3</button>
+    <!--portal for component-->
+    <button mat-button (click)="changePortal4()">function4</button>
+  </div>
+
+  <div class="tab-content">
+    <div [cdkPortalOutlet]="currentPortal"></div>
+  </div>
+</div>
+<ng-template cdkPortal let-nameInTemplate="nameInObject">
+  <p>
+    Hi,{{ nameInTemplate }},funciton1 ng-template + cdkPortal = TemplatePortal
+  </p>
+</ng-template>
+
+<p *cdkPortal>
+  function2: ususally in HTML Element,adding a cdkPortal becomes a TemplatePortal
+</p>
+
+<ng-template #template let-nameInTemplate="nameInObject">
+  Hi，{{ nameInTemplate }}，function3:in a ng-template，but is not a TemplatePortal
+</ng-template>
 <br>
 <h2>toolbar row</h2>
 <mat-toolbar color="primary">
@@ -131,4 +166,16 @@
 ></div>
 <button mat-raised-button color="primary" (click)="triggerRipple()">activate ripple</button>
 <button mat-raised-button class="accent" (click)="clearRipple()">deactivate ripple</button>
-
+<h2>Focus trap</h2>
+<button (click)="displayFocusTrap = !displayFocusTrap">show</button>
+<input value="input outside of the cdkTrapFocus">
+<div cdkTrapFocus *ngIf="displayFocusTrap" cdkTrapFocusAutoCapture="true">
+  <input value="1" cdkFocusInitial>
+  <input value="2" cdkFocusRegionStart>
+  <input value="3">
+  <input value="4" cdkFocusRegionEnd>
+</div>
+<div>
+  <button matButton (click)="createOutletOutOfApp()">using DomPortalOutlet create plugin</button>
+  <button matButton (click)="addTemplatePortal()">insert content</button>
+</div>

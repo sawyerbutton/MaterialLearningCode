@@ -1,9 +1,15 @@
+<section class="{{ theme }}">
 <mat-toolbar class="demo-header" color="primary">
   <button mat-icon-button (click)="sideNav.toggle()">
     <mat-icon>{{sideNav.opened? 'close': 'menu'}}</mat-icon>
   </button>
   <span>Angular Material Learning Demo</span>
+  <!--theme toggle-->
+
   <span class="toolbar-separator"></span>
+  <button mat-button (click)="toggleTheme()">switch theme</button>
+  <button mat-button *ngIf="bidiMode === 'ltr'" (click)="bidiMode = 'rtl'">LTR</button>
+  <button mat-button *ngIf="bidiMode === 'rtl'" (click)="bidiMode = 'ltr'">RTL</button>
   <button mat-icon-button [matMenuTriggerFor]="messageMenu" #menuTrigger="matMenuTrigger">
     <mat-icon>message</mat-icon>
   </button>
@@ -95,12 +101,15 @@
     <button mat-raised-button color="accent" (click)="rightSideNav.toggle()"></button>
   </mat-sidenav>
   <!--for main route outlet-->
-  <mat-sidenav-content>
+  <!--adding cdkScrollable below-->
+  <mat-sidenav-content [dir]="bidiMode" (dirChange)="logDirChange($event)" cdkScrollable>
     <button mat-raised-button color="primary" (click)="sideNav.toggle()">toggle the left side nav status</button>
     <button mat-raised-button color="primary" (click)="rightSideNav.toggle()">toggle the right side nav status</button>
     <!--matMenuTriggerFor has function openMenu() closeMenu() and toggleMenu()-->
     <button mat-raised-button color="primary" (click)="menuTrigger.toggleMenu()">Open message menu</button>
+    <app-bidi-test></app-bidi-test>
     <br>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</section>

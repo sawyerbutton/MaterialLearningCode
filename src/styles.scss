@@ -1,0 +1,111 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
+
+@import 'themes/custom-theme.scss';
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$custom-primary: mat-palette($mat-light-blue);
+$custom-accent: mat-palette($mat-green);
+$custom-warn: mat-palette($mat-brown);
+
+$custom-theme: mat-dark-theme($custom-primary, $custom-accent, $custom-warn);
+
+.custom-theme-1 {
+  @include angular-material-theme($custom-theme);
+}
+
+$custom-primary-2: mat-palette($mat-yellow, 800);
+$custom-accent-2: mat-palette($mat-deep-orange);
+$custom-warn-2: mat-palette($mat-pink);
+
+$custom-theme-2: mat-dark-theme($custom-primary-2, $custom-accent-2, $custom-warn-2);
+
+.custom-theme-2 {
+  @include angular-material-theme($custom-theme-2);
+}
+
+body {
+  margin: 0px;
+}
+
+.demo-app-header {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+
+.demo-app-container,
+.demo-app-sidenav {
+  position: absolute;
+  padding-top: 64px;
+  height: 100vh;
+}
+
+.demo-app-sidenav {
+  width: 300px;
+}
+
+.toolbar-seprator {
+  flex: 1 1 auto;
+}
+
+.autocomplete-highlight {
+  font-weight: bold;
+  background: yellow;
+}
+
+.blue-dropdown .mat-select-content {
+  background: rgba(0, 0, 255, 0.5);
+}
+
+.post-tile {
+  align-self: flex-start;
+  width: 100%;
+  margin: 5px;
+}
+
+.blog-sidebard-content {
+  align-self: flex-start;
+  padding-top: 100px;
+  width: 95%;
+}
+
+.post-tile .mat-card-image {
+  max-height: 300px;
+}
+
+mat-card:focus {
+  background: lightblue;
+  width: 95%;
+}
+
+.mat-basic-chip {
+  background: lime;
+  margin: 0 0 0 8px;
+  padding: 7px 12px;
+  border-radius: 5px;
+}
+
+.mat-sort-header-position-before {
+  justify-content: flex-end;
+}
+
+.float-menu {
+  position: fixed !important;
+  right: 15px;
+  bottom: 15px;
+  z-index: 2;
+}
+
+.fab-menu-panel {
+  border: 1px solid black;
+  background-color: white;
+}
+
+.fab-menu-panel .mat-nav-list {
+  padding-top: 0px;
+}

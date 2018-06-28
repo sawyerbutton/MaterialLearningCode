@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatStepperIntl} from '@angular/material';
 import { ErrorStateMatcher} from '@angular/material';
@@ -13,6 +13,11 @@ import { MatCheckboxChange} from '@angular/material';
 import { MAT_LABEL_GLOBAL_OPTIONS} from '@angular/material';
 import { MAT_CHECKBOX_CLICK_ACTION} from '@angular/material';
 import * as moment from 'moment';
+import {SurveyInputDirective} from './survey-input.directive';
+import { FocusKeyManager} from '@angular/cdk/a11y';
+import {DOWN_ARROW, UP_ARROW} from '@angular/cdk/keycodes';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+
 // customize the content for optional label
 export class TwStepperIntl extends MatStepperIntl {
   optionalLabel = 'this field is not required';
@@ -57,7 +62,12 @@ export const FORMATS = {
   ]
 
 })
-export class SurveyComponent implements OnInit {
+export class SurveyComponent implements OnInit , AfterViewInit {
+  // detect and manage the focus change
+  @ViewChildren(SurveyInputDirective) surveyInputs: QueryList<SurveyInputDirective>;
+  public keyManager: FocusKeyManager<SurveyInputDirective>;
+  // detect and change the focus by keyboard event
+  @HostListener('keydown', ['$event'])
   public isLinear = true;
   public surveyForm: FormGroup;
   public earlyErrorStateMatcher = new EarlyErrorStateMatcher();
@@ -69,8 +79,10 @@ export class SurveyComponent implements OnInit {
   public startDate = new Date(1999, 1, 10);
   public minDate = new Date(1999, 1, 5);
   public maxDate = new Date(1999, 1, 15);
+  public isHandset$: Observable<boolean>;
   constructor(
     private http: HttpClient,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.surveyForm = new FormGroup({
       basicQuestions: new FormGroup({
@@ -171,6 +183,11 @@ export class SurveyComponent implements OnInit {
       }
     ];
     this._setSelectAllState();
+    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(match => match.matches));
+  }
+  ngAfterViewInit() {
+    this.keyManager = new FocusKeyManager(this.surveyInputs).withWrap();
+    this.keyManager.setActiveItem(0);
   }
   //
   public highlightFiltered(countryName: string) {
@@ -243,5 +260,11 @@ export class SurveyComponent implements OnInit {
   public get selectedColorStyle() {
     return `rgb(${this.selectedColorRed}, ${this.selectedColorGreen}, ${this.selectedColorBlue})`;
   }
-
+  public keydown($event: KeyboardEvent) {
+    if ($event.keyCode === UP_ARROW) {
+      this.keyManager.setPreviousItemActive();
+    } else if ($event.keyCode === DOWN_ARROW) {
+      this.keyManager.setNextItemActive();
+    }
+  }
 }

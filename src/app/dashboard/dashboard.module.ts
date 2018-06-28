@@ -13,12 +13,17 @@ import { AddPostConfirmDialogComponent } from './blog/add-post-confirm-dialog/ad
 import { AfterPostNotifyComponent } from './blog/after-post-notify/after-post-notify.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { EmailComponent } from './inbox/email/email.component';
+import { SurveyInputDirective} from './survey/survey-input.directive';
+import { BidiTestComponent } from './main/bidi-test/bidi-test.component';
+import { CdkObserveContentDemoComponent } from './main/cdk-observe-content-demo/cdk-observe-content-demo.component';
+import { Portal4Component } from './main/portal4/portal4.component';
 
 @NgModule({
   imports: [CommonModule, DashboardRoutingModule, SharedMaterialModule],
   declarations: [DashboardComponent, MainComponent, SurveyComponent, BlogComponent, SubContentPipe, SubMainPipe,
-    AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent, InboxComponent, EmailComponent],
+    AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent, InboxComponent, EmailComponent,
+    SurveyInputDirective, BidiTestComponent, CdkObserveContentDemoComponent, Portal4Component],
   exports: [DashboardComponent],
-  entryComponents: [ AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent]
+  entryComponents: [ AddPostDialogComponent, AddPostConfirmDialogComponent, AfterPostNotifyComponent, Portal4Component]
 })
 export class DashboardModule {}

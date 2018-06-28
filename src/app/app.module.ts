@@ -10,7 +10,7 @@ import { SharedMaterialModule } from './shared-material/shared-material.module';
 import { HttpClientModule } from '@angular/common/http';
 // import { SubContentPipe } from './shared/sub-content.pipe';
 // import { ReactiveFormsModule} from '@angular/forms';
-
+import { PlatformModule} from '@angular/cdk/platform';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedMaterialModule
+    SharedMaterialModule,
+    PlatformModule
   ],
   providers: [],
   bootstrap: [AppComponent]
